@@ -1,4 +1,4 @@
-from typing import List, Tuple, Type
+from typing import List, Tuple
 
 
 def get_numbers(input_filename: str) -> List[int]:
