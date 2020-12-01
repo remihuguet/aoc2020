@@ -1,34 +1,34 @@
-from typing import List, Tuple
+from typing import List, Tuple, Type
 
 
 def get_numbers(input_filename: str) -> List[int]:
-    return [int(i) for i in open(input_filename, 'r').readlines()]
+    with open(input_filename, 'r') as f:
+        return [int(i) for i in f.readlines()]
 
 
-def find_complement(n: int, remains: List[int]) -> Tuple[int, int, bool]:
-    to_find, c = 0, 0
-    for c in remains:
+def find_complements_to(n: int, into: List[int]) -> Tuple[int, int]:
+    while into:
+        f = into.pop()
         try:
-            to_find = remains[remains.index(n - c)]
-            break
+            i = into.index(n - f)
+            return into[i], f
         except ValueError:
             continue
-    return to_find, c, to_find + c == n
 
 
 def solve_two(input_filename: str) -> int:
-    report = get_numbers(input_filename)
-    to_find, c, _ = find_complement(2020, report)
+    inputs = get_numbers(input_filename)
+    to_find, c = find_complements_to(2020, inputs)
     return to_find * c
 
 
 def solve_three(input_filename: str) -> int:
-    numbers = get_numbers(input_filename)
-    numbers.sort()
-
-    while numbers:
-        n = numbers.pop()
-        remains = list(filter(lambda i: i < 2020 - n, numbers))
-        to_find, c, ok = find_complement(2020 - n, remains)
-        if ok:
+    inputs = get_numbers(input_filename)
+    while inputs:
+        n = inputs.pop()
+        remains = list(filter(lambda i: i < 2020 - n, inputs))
+        try:
+            to_find, c = find_complements_to(2020 - n, remains)
             return n * to_find * c
+        except TypeError:
+            continue
