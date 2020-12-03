@@ -7,7 +7,6 @@ filename = '3/test_input.txt'
 def test_read_map():
     maps = toboggan.read_map(filename)
     assert maps.size == (11, 11)
-    print(maps.trees)
     assert maps.trees == [
         (0, 2), (0, 3),
         (1, 0), (1, 4), (1, 8),
