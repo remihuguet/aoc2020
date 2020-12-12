@@ -23,3 +23,9 @@ def test_count_arrangements_2():
     with open('10/test_input_2.txt') as f:
         adapters = f.readlines()
         assert 19208 == adapter.CountArrangements(adapters)()
+
+
+def test_count_arrangements_alternative():
+    with open('10/test_input_2.txt') as f:
+        adapters = f.readlines()
+        assert 19208 == adapter.AltCountArrangements(adapters)()

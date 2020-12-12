@@ -1,4 +1,5 @@
 from typing import Dict, List
+import functools
 
 
 def compute_interval(adapters: List[int]) -> Dict:
@@ -36,3 +37,33 @@ class CountArrangements:
         if total == 0:
             total = 1
         return total
+
+
+class AltCountArrangements:
+    def __init__(self, adapters: List[int]):
+        self._adapters = sorted([int(i.replace('\n', '')) for i in adapters])
+        self._adapters.append(self._adapters[-1] + 3)
+        self._adapters.insert(0, 0)
+
+    def __call__(self) -> int:
+        intervals = self.get_intervals()
+        return functools.reduce(lambda acc, cur: acc * self.get_combination_number(len(cur)), intervals, 1)
+
+    def get_combination_number(self, n: int):
+        f = [0, 1, 1]
+        for i in range(3, n + 1):
+            f.append(f[i - 1] + f[i - 2] + f[i - 3])
+        return f[n]
+
+    def get_intervals(self):
+        intervals = []
+        tmp = []
+
+        for i, a in enumerate(self._adapters):
+            tmp.append(a)
+
+            if i < len(self._adapters) - 1 and self._adapters[i + 1] - a != 1:
+                if len(tmp) > 2:
+                    intervals.append(tmp)
+                tmp = []
+        return intervals
