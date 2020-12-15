@@ -33,7 +33,6 @@ def test_find_2020_number(starting):
     assert expec == memory.compute_number_at_turn(turn=2020, starting=numbers)
 
 
-
 inputs_high = [
     (0, 3, 6, 175594),
     (1, 3, 2, 2578),

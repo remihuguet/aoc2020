@@ -1,6 +1,5 @@
 from typing import List
-from itertools import combinations, combinations_with_replacement
-
+from itertools import product
 
 
 def _compute_mask(val: int, mask: str) -> str:
@@ -39,12 +38,17 @@ def compute_init(filename: str) -> int:
 
 def compute_addresses(mem: int, mask: str) -> List[int]:
     masked = _compute_mask_mem(mem, mask)
-    floatings = [[(i, 1), (i, 0)] for i, v in enumerate(masked) if v == 'X']
-    permutations = combinations_with_replacement(floatings)
+    floatings = [((i, 1), (i, 0)) for i, v in enumerate(masked) if v == 'X']
+    permutations = product(*[f for f in floatings])
+    print(list(floatings))
     print(list(permutations))
     vals = []
-    for p in list(permutations):
-        print(p)
+    for p in permutations:
+        m = mask.copy()
+        m[p[0]] = p[1]
+        vals.append(_compute_mask_mem(mem, m))
+    return vals
+
 
 def _compute_mask_mem(val: int, mask: str) -> str:
     a_val = [0] * 36
