@@ -22,4 +22,16 @@ def test_compute_memory_addresses():
     mask = '000000000000000000000000000000X1001X'
     mem = 42
 
-    assert [26, 27, 58, 59] == docking.compute_addresses(mem, mask)
+    assert set([26, 27, 58, 59]) == set(docking.compute_addresses(mem, mask))
+
+
+def test_compute_init_part2():
+    mask = '000000000000000000000000000000X1001X'
+    mem = 42
+
+    assert set([26, 27, 58, 59]) == set(docking.compute_addresses(mem, mask))
+
+
+def test_compute_init_program_2():
+    assert 208 == docking.compute_init_2('14/test_input_2.txt')
+
