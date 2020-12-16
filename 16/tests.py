@@ -22,3 +22,7 @@ def test_keep_valid_tickets():
 
 def test_compute_fields_order():
     assert ['row', 'class', 'seat'] == ticket.compute_fields_order('16/test_input_2.txt')
+
+
+def test_decode_ticket():
+    assert {'row': 11, 'class': 12, 'seat': 13} == ticket.decode('16/test_input_2.txt')
