@@ -20,4 +20,5 @@ def test_keep_valid_tickets():
     assert expected == ticket.keep_valid_tickets('16/test_input_2.txt')
 
 
-def
+def test_compute_fields_order():
+    assert ['row', 'class', 'seat'] == ticket.compute_fields_order('16/test_input_2.txt')
